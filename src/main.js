@@ -1,4 +1,14 @@
 // query selector variables go here 👇
+var posterImage = document.querySelector('.poster-img')
+var posterTitle = document.querySelector('.poster-quote')
+var posterQuote = document.querySelector('.poster-quote')
+var showRandomButton = document.querySelector('.make-poster')
+var savedPostersButton = document.querySelector(".show-saved")
+var mainPosterSection = document.querySelector(".main-poster")
+var posterFormSectionLand = document.querySelector(".poster-form") 
+var createPosterButton = document.querySelector(".show-form")
+var backToMainButton = document.querySelector(".show-main")
+var showMyPoster = document.querySelector(".make-poster")
 
 // we've provided you with some data to work with 👇
 // tip: you can tuck this data out of view with the dropdown found near the line number where the variable is declared 
@@ -103,6 +113,10 @@ var savedPosters = [];
 var currentPoster;
 
 // event listeners go here 👇
+window.addEventListener('load', displayRandomPoster)
+showRandomButton.addEventListener('click', displayRandomPoster)
+backToMainButton.addEventListener('click', showMainView)
+createPosterButton.addEventListener('click', showMakePoster)
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
@@ -117,3 +131,32 @@ function createPoster(imageURL, title, quote) {
     title: title, 
     quote: quote}
 }
+
+function displayRandomPoster(){
+  var randomImage = images[getRandomIndex(images)]
+  var randomTitle = titles[getRandomIndex(titles)]
+  var randomQuote = quotes[getRandomIndex(quotes)]
+  var randomPoster = createPoster(randomImage, randomTitle, randomQuote)
+  posterImage.src = randomPoster.imageURL
+  posterTitle.innerText = randomPoster.title
+  posterQuote.innerText = randomPoster.quote
+}
+
+function showMakePoster(){
+  posterFormSectionLand.classList.toggle("hidden")
+  mainPosterSection.classList.toggle("hidden")
+}
+
+function showMainView(){
+  posterFormSectionLand.classList.toggle("hidden")
+  mainPosterSection.classList.toggle("hidden")
+}
+
+//function showMakePoster(image, title, quote){
+//  var userImage = image
+//  var userTitle = title
+//  var userQuote = quote
+//  var userPoster = createPoster(userImage, userTitle, userQuote)
+//  posterImage.scr = userPoster.title
+//  posterTitle.innerText = userPoster.quote
+//}
