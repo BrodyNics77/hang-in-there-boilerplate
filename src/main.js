@@ -1,13 +1,19 @@
 // query selector variables go here 👇
+// ---------------- General Data ---------------------------------
 var posterImage = document.querySelector('.poster-img')
-var posterTitle = document.querySelector('.poster-quote')
+var posterTitle = document.querySelector('.poster-title')
 var posterQuote = document.querySelector('.poster-quote')
-var showRandomButton = document.querySelector('.make-poster')
-var savedPostersButton = document.querySelector(".show-saved")
+// ------------------ Buttons --------------------------------------
+var showRandomButton = document.querySelector('.show-random')
+var savePostersButton = document.querySelector('.save-poster')
+var savedPostersButton = document.querySelector('.show-saved')
+var createPosterButton = document.querySelector(".show-form")
+var neverMindButton = document.querySelector(".show-main")
+var backToMainButton = document.querySelector('.back-to-main')
+// ------------------ Page ---------------------------------------
+var savedPostersSection = document.querySelector('.saved-posters')
 var mainPosterSection = document.querySelector(".main-poster")
 var posterFormSectionLand = document.querySelector(".poster-form") 
-var createPosterButton = document.querySelector(".show-form")
-var backToMainButton = document.querySelector(".show-main")
 var showMyPoster = document.querySelector(".make-poster")
 
 // we've provided you with some data to work with 👇
@@ -115,8 +121,14 @@ var currentPoster;
 // event listeners go here 👇
 window.addEventListener('load', displayRandomPoster)
 showRandomButton.addEventListener('click', displayRandomPoster)
-backToMainButton.addEventListener('click', showMainView)
-createPosterButton.addEventListener('click', showMakePoster)
+createPosterButton.addEventListener('click', function() {togglePosters(posterFormSectionLand, mainPosterSection, savedPostersSection);});
+savedPostersButton.addEventListener('click', function() {togglePosters(savedPostersSection, mainPosterSection, posterFormSectionLand);});
+backToMainButton.addEventListener('click', function() {togglePosters(mainPosterSection, posterFormSectionLand, savedPostersSection);});
+neverMindButton.addEventListener('click', function() {togglePosters(mainPosterSection, posterFormSectionLand, savedPostersSection);});
+
+
+//makeYourPosterButton.addEventListener('click', )
+//saveThisPosterButton.addEventListener('click', showSavePoster)
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
@@ -142,21 +154,31 @@ function displayRandomPoster(){
   posterQuote.innerText = randomPoster.quote
 }
 
-function showMakePoster(){
-  posterFormSectionLand.classList.toggle("hidden")
-  mainPosterSection.classList.toggle("hidden")
-}
-
 function showMainView(){
   posterFormSectionLand.classList.toggle("hidden")
   mainPosterSection.classList.toggle("hidden")
 }
 
-//function showMakePoster(image, title, quote){
-//  var userImage = image
-//  var userTitle = title
-//  var userQuote = quote
-//  var userPoster = createPoster(userImage, userTitle, userQuote)
-//  posterImage.scr = userPoster.title
-//  posterTitle.innerText = userPoster.quote
+//function showSavePoster(){
+//  posterFormSectionLand.classList.toggle("hidden")
+//  mainPosterSection.classList.toggle("hidden")
 //}
+
+function togglePosters(sectionToShow, ...sectionsToHide){
+  sectionToShow.classList.remove('hidden')
+  sectionsToHide.forEach(section => {
+    section.classList.add('hidden')
+  }) 
+}
+
+function showMakePoster(image, title, quote){
+  var userImage = image
+  var userTitle = title
+  var userQuote = quote
+  var userPoster = createPoster(userImage, userTitle, userQuote)
+  posterImage.scr = userPoster.title
+  posterTitle.innerText = userPoster.quote
+
+  posterFormSectionLand.classList.toggle("hidden")
+  mainPosterSection.classList.toggle("hidden")
+}
